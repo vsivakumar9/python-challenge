@@ -7,7 +7,9 @@ import os
 csvpath = os.path.join('budget_data_1.csv')
 #file = 'budget_data_1.csv'
 sum=0.0
+sumrevchange = 0.0
 cnt=0
+revchngcnt=0
 avgrevchange=0
 revchange=0
 maxrev_increase=0
@@ -30,9 +32,11 @@ with open(csvpath, newline='')  as budgetcsv:
         currev=float(row["Revenue"])
         sum = sum + currev
         cnt=cnt+1
-        
-        revchange = currev - prevrev
-        
+        if cnt > 1: 
+            revchange = currev - prevrev
+            sumrevchange = sumrevchange + 1
+            revchngcnt =  revchngcnt + 1  
+        print(str(revchange))
         #store the current rev in to the hold area for use.
         prevrev=currev    
     
