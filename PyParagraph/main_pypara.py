@@ -6,20 +6,44 @@ Created on Sat May  19 13:18:49 2018
 """
 
 # Module for reading CSV's
-import csv
+#import csv
 import os
+import re
 
-csvpath = os.path.join('netflix_ratings.csv')
+linelist=list()
 
-# Use words.txt as the file name
+#dict to count words
+countsdict=dict()
+
+
+filepath = os.path.join("raw_data","paragraph_1.txt")
+
+# Use paragraph_1.txt as the file name
 fname = input("Enter file name: ")
+if len(fname) < 1 :
+    fname = filepath
+    print(fname)
 try :
     fh = open(fname)
 except:
-    print ('invalid file name',fname)
+    print ('invalid file name or path: ',fname)
     quit()
     
 for line in fh:
-    lineup = line.upper()
-    lineup1 = lineup.rstrip()
-    print(lineup1)
+    #print(line)
+    linelist.append(line)
+    linewords = line.split(" ")
+    sentences = line.split(".")
+#print(linelist)
+print(linewords)
+print(sentences)
+wordcnt = len(linewords)
+sentcnt = len(sentences)
+#close file handle
+fh.close()
+
+#Print finval tallies
+print(" ")
+print ("Approximate Word Count     : " + str(wordcnt))
+print ("Approximate sentence  Count: " + str(sentcnt))
+

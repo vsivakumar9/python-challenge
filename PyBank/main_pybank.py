@@ -5,7 +5,7 @@ import os
 
 
 #csvpath = os.path.join('budget_data_1.csv')
-csvpath = os.path.join('budget_data_2.csv')
+csvpath = os.path.join("raw_data","budget_data_2.csv")
 #file = 'budget_data_1.csv'
 sum=0.00
 sumrevchange = 0.00
