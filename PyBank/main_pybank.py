@@ -4,7 +4,8 @@ import csv
 import os
 
 
-csvpath = os.path.join('budget_data_1.csv')
+#csvpath = os.path.join('budget_data_1.csv')
+csvpath = os.path.join('budget_data_2.csv')
 #file = 'budget_data_1.csv'
 sum=0.00
 sumrevchange = 0.00
@@ -17,7 +18,7 @@ maxrev_decrease=0.00
 currev=0
 prevrev=0
 
-outfile="budget_out.txt"
+outfile="budget_out2.txt"
 
 
 

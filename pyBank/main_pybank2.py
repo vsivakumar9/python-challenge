@@ -10,7 +10,8 @@ import pandas as pd
 #totmonths=0
     
 # set file path
-filepath = "raw_data/budget_data_1.csv"
+#filepath = "raw_data/budget_data_1.csv"
+filepath = "raw_data/budget_data_2.csv"
 
 #read csv data file with the pandas lib
 budgetcsv_df = pd.read_csv(filepath)
