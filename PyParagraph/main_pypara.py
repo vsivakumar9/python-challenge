@@ -10,8 +10,12 @@ Created on Sat May  19 13:18:49 2018
 import os
 import re
 
-filepath = os.path.join("raw_data","paragraph_1.txt")
-outfile = ("pypara_result.txt")
+#filepath = os.path.join("raw_data","paragraph_1.txt")
+#outfile = ("pypara_result.txt")
+
+filepath = os.path.join("raw_data","paragraph_2.txt")
+outfile = ("pypara_result2.txt")
+
 
 # Use paragraph_1.txt as the file name
 #fname = input("Enter file name: ")
@@ -28,54 +32,70 @@ except:
 linelist=list()
 periods=list()
 periodlist=list()
-#dict to count words
-countsdict=dict()
+#dict to count word frequency
+#countsdict=dict()
 sentcnt = 0
-wordcnt = 0
+#wordcnt = 0
+linecnt=0
 totwordcnt = 0
 totletlength = 0
+# average letter length.
 avgletcnt = 0.0
+#average sentence length.
 avgsentlength = 0.0
 
 #loop thru the lines in the paragraph being read. 
 for line in fh:
     #print(line)
+    linecnt += 1
+    print("linecnt : " + str(linecnt))
+    # split line into words and store in array linewrods.
+    line=line.strip('\n')
     linelist.append(line)
+    #print(linelist)
+    #Find words with periods using regex to determine number of sentences.
+    #periods = re.findall('(\S*["."])',line)
+    #periods = re.findall('[A-Z][^.]*(\S+?[.])',line)
+    periods = re.findall('[A-Z][^.]*(\S+?[.])',line)
+    print(periods)
+    #split sentence to words for other stats like letter cnt and word cnt.
     linewords = line.split(" ")
-    ##sentences = line.split(".")
-    
-    #count letters in each word.
-    #print(linewords)
-    for word in linewords :
-        letlength = len(word)
-        totletlength = totletlength + letlength
-        totwordcnt += 1
-        
-        #print("1: " + word + str(letlength))
-        # print("2: " + str(totwordcnt))
-    
-    avgletcnt = totletlength / totwordcnt
-    
-    #Find words with periods using regex.
-    periods = re.findall('(\S*["."])',line)
-    #print(periods)
-    #periodlist.append(periods)
-    wordcnt = wordcnt + len(linewords)
-    sentcnt = sentcnt + len(periods)
+    print(linewords)
 
+    if len(linewords) >= 2 :
+        #append word with the period to a list to determine # of sentences.
+        periodlist.append(periods)
+        #add number of sentences to total.
+        sentcnt = sentcnt + len(periods)
+        totwordcnt = totwordcnt + len(linewords)
+        
+        #count letters in each word.
+        # loop thru word array to determine required counts. 
+        for word in linewords :
+            letlength = len(word)
+            totletlength = totletlength + letlength
+            
+    print(periodlist)
+    print("totwordcnt   : " + str(totwordcnt) )
+    print("sentcnt      : " + str(sentcnt) )
+    print("totletlength : " + str(totletlength))
+#calc avg sentence length(total # of words / total # of sentences.
 avgsentlength = totwordcnt / sentcnt
 
-#print(linelist)
-#print(linewords)
-#print(sentences)
-## assign counts to relevant variables for print.
+#average letter count in word(Total # of letters / Total # of words in para )
+avgletcnt = totletlength / totwordcnt
+    
+        
+    #sentences = line.split(".")
+    #print(sentences)
 
 #close file handle
 fh.close()
 
-#Print finval tallies
+
+#Print final tallies
 print(" ")
-print("Approximate Word Count     : " + str(wordcnt) )
+print("Approximate Word Count     : " + str(totwordcnt) )
 print("Approximate Sentence  Count: " + str(sentcnt) )
 #print("Average Letter Count       : " + str(avgletcnt) )
 print("Average Letter Count       : " + "%.2f" % avgletcnt)
@@ -84,7 +104,7 @@ print("Average Sentence Length    : " + "%.2f" % avgsentlength)
 with  open(outfile,'w')  as fhout:
         print("Paragraph Analysis", file=fhout,end='\n')
         print("----------------------------------------", file=fhout,end='\n')
-        print("Approximate Word Count     : " + str(wordcnt), 
+        print("Approximate Word Count     : " + str(totwordcnt), 
               file=fhout,end='\n')
         print("Approximate Sentence  Count: " + str(sentcnt), 
               file=fhout,end='\n')
