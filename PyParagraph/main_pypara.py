@@ -48,7 +48,7 @@ avgsentlength = 0.0
 for line in fh:
     #print(line)
     linecnt += 1
-    print("linecnt : " + str(linecnt))
+    #print("linecnt : " + str(linecnt))
     # split line into words and store in array linewrods.
     line=line.strip('\n')
     linelist.append(line)
@@ -56,11 +56,11 @@ for line in fh:
     #Find words with periods using regex to determine number of sentences.
     #periods = re.findall('(\S*["."])',line)
     #periods = re.findall('[A-Z][^.]*(\S+?[.])',line)
-    periods = re.findall('[A-Z][^.]*(\S+?[.])',line)
-    print(periods)
+    periods = re.findall('[A-Z].*\s(\S+[.])',line)
+    #print(periods)
     #split sentence to words for other stats like letter cnt and word cnt.
     linewords = line.split(" ")
-    print(linewords)
+    #print(linewords)
 
     if len(linewords) >= 2 :
         #append word with the period to a list to determine # of sentences.
@@ -75,10 +75,10 @@ for line in fh:
             letlength = len(word)
             totletlength = totletlength + letlength
             
-    print(periodlist)
-    print("totwordcnt   : " + str(totwordcnt) )
-    print("sentcnt      : " + str(sentcnt) )
-    print("totletlength : " + str(totletlength))
+    #print(periodlist)
+    #print("totwordcnt   : " + str(totwordcnt) )
+    #print("sentcnt      : " + str(sentcnt) )
+    #print("totletlength : " + str(totletlength))
 #calc avg sentence length(total # of words / total # of sentences.
 avgsentlength = totwordcnt / sentcnt
 
